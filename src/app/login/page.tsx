@@ -5,6 +5,23 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
+const SparkLogo = () => (
+  <svg width="40" height="40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M185.01 152.663C194.797 136.865 200 118.629 200 100C200 73.4783 189.464 48.043 170.711 29.2893C151.957 10.5357 126.522 0 100 0C80.2219 0 60.8879 5.8649 44.443 16.853C27.9981 27.8412 15.1809 43.459 7.61209 61.7317C0.0433283 80.0043 -1.93701 100.111 1.92152 119.509C5.78004 138.907 15.3041 156.725 29.2894 170.711C43.2746 184.696 61.0929 194.22 80.491 198.079C99.8891 201.937 119.996 199.957 138.268 192.388C156.541 184.819 172.159 172.002 183.147 155.557C183.771 154.622 184.379 153.678 184.971 152.726L185 152.73C185.003 152.707 185.006 152.685 185.01 152.663ZM101.665 12.0157C88.8446 36.5404 79.7023 41.4265 72.9097 45.0001C66.8397 48.2301 62.8397 50.3601 56.8497 76.3201C51.4416 99.7552 36.1602 116.929 15.2424 123.667C17.7332 132.587 21.6298 141.106 26.8307 148.89C27.1222 149.326 27.4173 149.76 27.7161 150.19C34.6053 134.198 54.2918 120.176 83.24 111.27C100.73 105.88 100.1 97.0001 97 77.4301C95.76 69.5801 94.36 60.6701 95 51.5701C95.62 42.8301 99.7 33.5701 106.19 26.1801C110.378 21.4059 115.454 17.5185 121.244 14.6027C114.864 13.0156 108.298 12.1412 101.665 12.0157ZM50.9496 173.062C45.9352 169.696 41.2795 165.821 37.0571 161.5C38.4048 143.815 63.3682 129.937 86.78 122.73C114.97 114.06 111.74 93.5601 108.89 75.5601C107.69 67.9901 106.45 60.1601 107 52.4301C108.332 33.6201 126.393 23.6891 139.215 21.2205C142.543 22.8774 145.776 24.7496 148.89 26.8307C149.314 27.114 149.736 27.4008 150.154 27.6911C140.822 34.8518 127.266 50.1433 128 78.12C128.209 86.1941 130.796 93.8589 133.534 101.972L133.54 101.99L133.541 101.993C139.38 119.332 145.419 137.261 130.74 164.08C123.963 176.498 118.061 181.389 109.389 187.498C105.448 187.921 101.491 188.076 97.5471 187.966C107.136 179.143 118.334 166.219 117.12 154.81C116.65 150.46 114.36 144.5 105.41 140.52C96.4598 136.54 87.6798 136.41 79.2998 140.13C65.0908 146.45 55.6978 162.715 50.9496 173.062ZM140 77.84C139.318 52.1114 153.137 39.8993 159.863 35.4982C166.446 41.6084 172.061 48.6956 176.505 56.5147C167.724 61.3208 158 70.7443 158 85.9999C158 96.7899 162.45 106.33 166.8 115.54C171.278 125.146 175.542 134.296 175.55 145.124C171.85 151.319 167.382 157.068 162.225 162.225C154.096 170.354 144.496 176.771 133.995 181.169C136.418 178.021 138.815 174.344 141.26 169.88C158.413 138.563 150.959 116.277 144.969 98.367L144.91 98.19C142.36 90.64 140.16 84.12 140 77.84ZM183.043 129.119C181.155 122.796 178.462 116.998 175.917 111.519L175.82 111.31C171.8 102.71 168 94.5799 168 85.9999C168 74.8109 175.322 68.5959 180.948 65.4834C181.067 65.7628 181.185 66.043 181.301 66.3239C187.962 82.4038 189.705 100.098 186.309 117.168C185.499 121.24 184.406 125.232 183.043 129.119ZM61.3781 179.072C63.0001 179.864 64.6493 180.608 66.3239 181.301C71.1912 183.318 76.2065 184.883 81.3075 185.992C92.2937 177.372 105.991 163.364 105.21 156.08L105.209 156.074C105.129 155.34 104.918 153.415 100.56 151.48C94.7698 148.91 89.4198 148.78 84.1998 151.1C73.6855 155.763 65.6231 169.568 61.3781 179.072ZM12.8005 111.842C29.1805 106.149 40.7803 92.6015 45.1497 73.6501C51.9997 43.8801 57.9997 39.3501 67.2697 34.4401C72.3615 31.7499 78.4328 28.498 87.4881 12.907C68.7849 15.612 51.3233 24.2845 37.8039 37.8038C21.3064 54.3013 12.0265 76.6691 12 100C12 103.976 12.2694 107.932 12.8005 111.842Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const BOARDROOM_QUOTES = [
+  { quote: "You are not serious people.", author: "Logan Roy" },
+  { quote: "I win. It's what I do.", author: "Logan Roy" },
+  { quote: "It's not personal. It's just business.", author: "The Boardroom" },
+];
+
 export default function LoginPage() {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -20,7 +37,7 @@ export default function LoginPage() {
       });
 
       const { data, success } = await backendRes.json();
-      
+
       if (success) {
         setAuth(data.token, data.user);
         router.push('/');
@@ -31,40 +48,104 @@ export default function LoginPage() {
     }
   };
 
+  const randomQuote = BOARDROOM_QUOTES[Math.floor(Math.random() * BOARDROOM_QUOTES.length)];
+
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 relative">
-      <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl" />
-      
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-sm rounded-[24px] overflow-hidden backdrop-blur-3xl bg-[#ffffff08] border border-white/10 p-10 ring-1 ring-white/10 relative z-10"
+    <div className="min-h-screen bg-[#FBE8CE] selection:bg-[#79AE6F]/20 selection:text-[#79AE6F] relative overflow-hidden">
+      {/* Grid Pattern */}
+      <div className="fixed inset-0 bg-grid-pattern pointer-events-none opacity-40 md:opacity-100" />
+
+      {/* Back button */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-8 left-8 md:top-12 md:left-12 z-50 text-[#79AE6F] text-xs font-bold uppercase tracking-[0.25em] hover:opacity-60 transition-opacity flex items-center gap-2"
       >
-        <div className="text-center mb-8">
-          <div className="mx-auto w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-emerald-400 mb-6 flex items-center justify-center">
-            <span className="text-white text-xl font-bold font-mono">S</span>
+        ← Return
+      </button>
+
+      <div className="relative z-10 min-h-screen grid md:grid-cols-2">
+
+        {/* Left Panel — Editorial */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden md:flex flex-col justify-between p-16 border-r border-[#79AE6F]/10"
+        >
+          {/* Logo */}
+          <div className="flex items-center gap-3 text-[#79AE6F]">
+            <SparkLogo />
+            <span className="text-2xl font-black tracking-tighter">SPARK.</span>
           </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-white mb-2">Welcome back</h2>
-          <p className="text-gray-400 text-sm">Please sign in to continue via Google Identity.</p>
-        </div>
 
-        <div className="flex justify-center p-1 bg-white/5 rounded-xl border border-white/5 w-full hover:bg-white/10 transition">
-          <GoogleLogin
-            onSuccess={handleSuccess}
-            onError={() => {
-              console.log('Login Error');
-              alert('Error with Google Popup');
-            }}
-            useOneTap
-            shape="pill"
-            theme="filled_black"
-          />
-        </div>
+          {/* Big headline removed for minimal look */}
+          <div />
 
-        <p className="mt-8 text-center text-xs text-gray-600">
-          By continuing, you agree to our Terms of Service and implicitly claim 50 free credits.
-        </p>
-      </motion.div>
+          {/* Quote kept as a classy accent */}
+          <div className="border-l-2 border-[#79AE6F]/20 pl-6 mb-12">
+            <p className="text-[#79AE6F] text-lg font-medium italic leading-snug mb-2 opacity-80">
+              &ldquo;{randomQuote.quote}&rdquo;
+            </p>
+            <p className="text-[#9AB17A]/50 text-[10px] font-bold uppercase tracking-widest">
+              — {randomQuote.author}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Right Panel — Auth Form */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col justify-center items-center p-8 md:p-16"
+        >
+          {/* Mobile logo only */}
+          <div className="flex md:hidden items-center gap-3 text-[#79AE6F] mb-12">
+            <SparkLogo />
+            <span className="text-2xl font-black tracking-tighter">SPARK.</span>
+          </div>
+
+          <div className="w-full max-w-sm">
+
+            {/* Header */}
+            <div className="mb-10">
+              <h2 className="text-[10vw] md:text-[3.5vw] font-black tracking-tighter text-[#79AE6F] uppercase leading-[0.9] mb-4">
+                Welcome<br />Back.
+              </h2>
+              <p className="text-[#9AB17A] text-sm font-medium leading-relaxed">
+                Sign in to access your boardroom session history and active strategic directives.
+              </p>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex-1 h-px bg-[#79AE6F]/15" />
+              <span className="text-[#9AB17A]/50 text-[10px] font-bold uppercase tracking-widest">
+                Continue with
+              </span>
+              <div className="flex-1 h-px bg-[#79AE6F]/15" />
+            </div>
+
+            {/* Google Auth */}
+            <div className="flex justify-center p-3 bg-white/50 rounded-2xl border border-[#79AE6F]/15 hover:border-[#79AE6F]/40 hover:bg-white/70 transition-all duration-300 backdrop-blur-sm">
+              <GoogleLogin
+                onSuccess={handleSuccess}
+                onError={() => {
+                  console.log('Login Error');
+                  alert('Error with Google Popup');
+                }}
+                shape="pill"
+                theme="outline"
+              />
+            </div>
+
+            {/* Footer note */}
+            <p className="mt-10 text-center text-[10px] uppercase tracking-[0.4em] text-[#9AB17A]/40 font-bold">
+              Strategic Council — Final Directive
+            </p>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
