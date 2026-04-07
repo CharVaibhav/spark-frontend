@@ -309,7 +309,7 @@ function ChatPageInner() {
       const jobId = resJson.data.jobId;
       updateCredits(user!.available_credits - 2);
 
-      const sseSource = await fetch(`http://localhost:3001/api/chat/events/${jobId}`, {
+      const sseSource = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat/events/${jobId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

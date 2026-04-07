@@ -1,6 +1,6 @@
 import { useAuthStore } from '../store/useAuthStore';
 
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`;
 
 /**
  * A tiny wrapper around native fetch that automatically injects the auth token.

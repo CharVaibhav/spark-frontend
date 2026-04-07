@@ -30,7 +30,7 @@ export default function LoginPage() {
     try {
       if (!response.credential) throw new Error("No credential");
 
-      const backendRes = await fetch('http://localhost:3001/api/auth/google', {
+      const backendRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken: response.credential }),
