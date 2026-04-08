@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useRouter } from 'next/navigation';
@@ -25,6 +26,13 @@ const BOARDROOM_QUOTES = [
 export default function LoginPage() {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
+  const token = useAuthStore((state) => state.token);
+
+  useEffect(() => {
+    if (token) {
+      router.push('/chat');
+    }
+  }, [token, router]);
 
   const handleSuccess = async (response: any) => {
     try {
@@ -40,7 +48,7 @@ export default function LoginPage() {
 
       if (success) {
         setAuth(data.token, data.user);
-        router.push('/');
+        router.push('/chat');
       }
     } catch (err) {
       console.error('Login failed', err);

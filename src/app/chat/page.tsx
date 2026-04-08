@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useChatStore } from '@/store/useChatStore';
 import { apiFetch } from '@/lib/api';
-import { ArrowUp, Plus, Lock, LogIn, Zap, ChevronRight, X, Lightbulb } from 'lucide-react';
+import { ArrowUp, Plus, Lock, LogIn, Zap, ChevronRight, X, Lightbulb, LogOut } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 
 interface Message {
@@ -188,7 +188,7 @@ function AgentMarkdown({ content }: { content: string }) {
 function ChatPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user, token, updateCredits } = useAuthStore();
+  const { user, token, updateCredits, logout } = useAuthStore();
   const { activeThreadId, setActiveThread, threads, setThreads, addThread } = useChatStore();
 
   const [input, setInput] = useState('');
@@ -372,6 +372,11 @@ function ChatPageInner() {
       setIsStreaming(false);
     }
   };
+  
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -459,11 +464,18 @@ function ChatPageInner() {
               </div>
 
               {user && (
-                <div className="mt-auto pt-4 border-t border-[#79AE6F]/10">
+                <div className="mt-auto pt-4 space-y-2 border-t border-[#79AE6F]/10">
                   <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-[#79AE6F]/5 border border-[#79AE6F]/10">
                     <Zap className="w-3.5 h-3.5 fill-[#79AE6F] text-[#79AE6F]" />
                     <span className="text-xs font-bold text-[#79AE6F]">{user.available_credits} Credits</span>
                   </div>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl border border-transparent text-[#9AB17A] text-xs font-bold uppercase tracking-widest hover:text-[#79AE6F] hover:bg-[#79AE6F]/5 transition-all"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    Sign Out
+                  </button>
                 </div>
               )}
             </div>
@@ -488,14 +500,23 @@ function ChatPageInner() {
           </div>
 
           {user ? (
-            <div className="flex items-center gap-3">
-              <div className="text-right hidden sm:block">
-                <p className="text-[#79AE6F] text-xs font-bold">{user.name}</p>
-                <p className="text-[#9AB17A] text-[10px]">{user.email}</p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="text-right hidden sm:block">
+                  <p className="text-[#79AE6F] text-xs font-bold">{user.name}</p>
+                  <p className="text-[#9AB17A] text-[10px]">{user.email}</p>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#79AE6F] flex items-center justify-center text-[#FBE8CE] text-xs font-bold flex-shrink-0">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#79AE6F] flex items-center justify-center text-[#FBE8CE] text-xs font-bold flex-shrink-0">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
+              <button
+                onClick={handleLogout}
+                className="p-2 rounded-full border border-[#79AE6F]/15 hover:bg-[#79AE6F]/10 text-[#79AE6F] transition-all"
+                title="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
             </div>
           ) : (
             <button
