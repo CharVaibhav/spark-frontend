@@ -119,17 +119,17 @@ export default function Home() {
       {/* Logo / Nav */}
       <main className="relative z-10 w-full flex flex-col">
         {/* Fold 1: The Boardroom */}
-        <div className="relative grid md:grid-cols-[1.2fr_1fr] min-h-screen">
+        <div className="relative grid md:grid-cols-[1.2fr_1fr] min-h-screen lg:min-h-0">
           {/* Nav within first section */}
-          <nav className="absolute top-0 left-0 w-full p-8 md:p-12 z-50 flex justify-between items-center">
-            <div className="flex items-center gap-8">
+          <nav className="absolute top-0 left-0 w-full p-6 sm:p-8 md:p-12 z-50 flex justify-between items-center">
+            <div className="flex items-center gap-4 sm:gap-8">
               <motion.button
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 onClick={() => router.push('/')}
-                className="text-[#79AE6F] text-2xl font-bold tracking-tighter flex items-center gap-2"
+                className="text-[#79AE6F] text-xl sm:text-2xl font-bold tracking-tighter flex items-center gap-2"
               >
-                <svg width="32" height="32" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+                <svg width="24" height="24" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-8 sm:h-8">
                   <path 
                     fillRule="evenodd" 
                     clipRule="evenodd" 
@@ -142,23 +142,23 @@ export default function Home() {
               
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button 
                 onClick={() => router.push('/login')}
-                className="px-6 py-2.5 rounded-full border border-[#79AE6F] text-[#79AE6F] font-black text-xs uppercase tracking-[0.1em] hover:bg-[#79AE6F] hover:text-[#FBE8CE] transition-all duration-300 active:scale-95"
+                className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border border-[#79AE6F] text-[#79AE6F] font-black text-[10px] sm:text-xs uppercase tracking-[0.1em] hover:bg-[#79AE6F] hover:text-[#FBE8CE] transition-all duration-300 active:scale-95"
               >
                 Login
               </button>
               <button 
                 onClick={() => router.push('/login')}
-                className="px-6 py-2.5 rounded-full border border-[#79AE6F] text-[#79AE6F] font-black text-xs uppercase tracking-[0.1em] hover:bg-[#79AE6F] hover:text-[#FBE8CE] transition-all duration-300 active:scale-95"
+                className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border border-[#79AE6F] text-[#79AE6F] font-black text-[10px] sm:text-xs uppercase tracking-[0.1em] hover:bg-[#79AE6F] hover:text-[#FBE8CE] transition-all duration-300 active:scale-95 text-nowrap"
               >
                 Sign Up
               </button>
             </div>
           </nav>
           {/* Left: Bold Statement */}
-          <section className="flex flex-col justify-center p-8 md:p-24 lg:p-32 border-r border-[#0000000a]">
+          <section className="flex flex-col justify-center p-6 sm:p-8 md:p-24 lg:p-32 border-b md:border-b-0 md:border-r border-[#0000000a] pt-32 md:pt-24">
             <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -198,14 +198,15 @@ export default function Home() {
           </section>
 
           {/* Right: Prompt Cards */}
-          <section className="flex flex-col justify-center p-8 md:p-12 lg:p-24 bg-white/10 backdrop-blur-[2px]">
+          <section className="flex flex-col justify-center p-6 sm:p-8 md:p-12 lg:p-24 bg-white/10 backdrop-blur-[2px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key="input-form"
                 initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="w-full max-w-lg"
+                className="w-full max-w-lg mx-auto"
               >
                 <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -266,9 +267,9 @@ export default function Home() {
         </div>
 
         {/* Fold 2: Logan Roy */}
-        <div className="grid md:grid-cols-[1.2fr_1fr] min-h-screen border-t border-[#79AE6F]/10 relative overflow-hidden">
+        <div className="grid md:grid-cols-[1.2fr_1fr] border-t border-[#79AE6F]/10 relative overflow-hidden">
           {/* Left: Logan Roy Image */}
-          <section className="flex flex-col justify-center items-center p-8 md:p-24 lg:p-32 border-r border-[#79AE6F]/10 relative">
+          <section className="flex flex-col justify-center items-center p-6 sm:p-8 md:p-24 lg:p-32 border-r border-[#79AE6F]/10 relative overflow-hidden">
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -282,7 +283,7 @@ export default function Home() {
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain mix-blend-multiply opacity-85 hover:opacity-100 transition-opacity duration-700"
+                className="object-contain mix-blend-multiply opacity-85 hover:opacity-100 transition-opacity duration-700 pointer-events-none md:pointer-events-auto"
                 style={{
                   WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
                   maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)'
@@ -292,7 +293,7 @@ export default function Home() {
           </section>
 
           {/* Right: Rotating Text */}
-          <section className="flex flex-col justify-center p-8 md:p-12 lg:p-24 bg-white/10 backdrop-blur-[2px]">
+          <section className="flex flex-col justify-center p-6 sm:p-8 md:p-12 lg:p-24 bg-white/10 backdrop-blur-[2px] border-t md:border-t-0 border-[#79AE6F]/10">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -300,7 +301,7 @@ export default function Home() {
               style={{ willChange: 'transform, opacity' }}
             >
               <RotatingText />
-              <p className="text-[#9AB17A] text-lg font-medium max-w-sm leading-relaxed mt-8 mb-10">
+              <p className="text-[#9AB17A] text-base md:text-lg font-medium max-w-sm leading-relaxed mt-4 sm:mt-8 mb-10">
                 The boardroom doesn&apos;t care. It wants leverage. Step inside and let the agent gut your strategy.
               </p>
 
@@ -315,18 +316,18 @@ export default function Home() {
         </div>
 
         {/* Fold 3: Kendall Roy */}
-        <div className="grid md:grid-cols-[1.1fr_1fr] min-h-screen border-t border-[#79AE6F]/10 relative overflow-hidden bg-[#79AE6F]/[0.02]">
+        <div className="grid md:grid-cols-[1.1fr_1fr] border-t border-[#79AE6F]/10 relative overflow-hidden bg-[#79AE6F]/[0.02]">
           {/* Tickers - Full Width */}
-          <div className="absolute top-24 left-0 w-[200%] pointer-events-none z-0">
+          <div className="absolute top-8 md:top-24 left-0 w-[200%] pointer-events-none z-0 opacity-40 md:opacity-100">
             <MarqueeTicker speed={50} strings={["SYNERGY", "PIVOT", "OPTICS", "LEVERAGE", "DISRUPT", "ALIGNMENT", "VIBE-CHECK"]} />
           </div>
 
-          <div className="absolute bottom-24 left-0 w-[200%] pointer-events-none z-0">
+          <div className="absolute bottom-8 md:bottom-24 left-0 w-[200%] pointer-events-none z-0 opacity-40 md:opacity-100">
             <MarqueeTicker reverse speed={35} strings={["HYPER-GROWTH", "ECOSYSTEM", "UNIT ECONOMICS", "GO-TO-MARKET", "TECHNO-GATSBY"]} />
           </div>
 
           {/* Left: Tickers & Text */}
-          <section className="flex flex-col justify-center p-8 md:p-12 lg:p-24 border-r border-[#79AE6F]/10 relative z-10">
+          <section className="flex flex-col justify-center p-6 sm:p-8 md:p-12 lg:p-24 border-r border-[#79AE6F]/10 relative z-10">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -334,17 +335,17 @@ export default function Home() {
               style={{ willChange: 'transform, opacity' }}
               className="relative"
             >
-              <h2 className="text-[9vw] md:text-[5.5vw] leading-[0.9] font-black tracking-tighter text-[#79AE6F] uppercase mb-6 drop-shadow-sm">
+              <h2 className="text-[10.5vw] sm:text-[9vw] md:text-[5.5vw] leading-[0.9] font-black tracking-tighter text-[#79AE6F] uppercase mb-6 drop-shadow-sm pt-24 md:pt-0">
                 The Number <br />
                 One Boy.
               </h2>
-              <p className="text-[#79AE6F] text-lg font-medium max-w-sm leading-relaxed mb-10 opacity-90">
+              <p className="text-[#79AE6F] text-base md:text-lg font-medium max-w-sm leading-relaxed mb-10 opacity-90">
                 Legacy is dead. Scale or be scavenged. Let the Number One Boy gut your strategy.
               </p>
               
               <button
                 onClick={() => router.push('/chat')}
-                className="flex items-center gap-2 text-sm font-bold text-[#FBE8CE] bg-[#79AE6F] px-8 py-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg shadow-[#79AE6F]/20"
+                className="flex items-center gap-2 text-sm font-bold text-[#FBE8CE] bg-[#79AE6F] px-8 py-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg shadow-[#79AE6F]/20 mb-8 md:mb-0"
               >
                 Let&apos;s make some noise →
               </button>
@@ -352,13 +353,13 @@ export default function Home() {
           </section>
 
           {/* Right: Kendall SVG */}
-          <section className="flex flex-col justify-center items-center p-8 md:p-24 relative overflow-hidden">
+          <section className="flex flex-col justify-center items-center p-6 sm:p-8 md:p-24 relative overflow-hidden border-t md:border-t-0 border-[#79AE6F]/10">
              <motion.div
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               style={{ willChange: 'transform, opacity' }}
-              className="relative w-full max-w-[30rem] aspect-[3/4]"
+              className="relative w-full max-w-[24rem] md:max-w-[30rem] aspect-[3/4]"
             >
               <Image 
                 src="/kendalroy.svg" 

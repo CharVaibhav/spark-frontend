@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useChatStore } from '@/store/useChatStore';
 import { apiFetch } from '@/lib/api';
-import { ArrowUp, Plus, Lock, LogIn, Zap, ChevronRight, X, Lightbulb, LogOut } from 'lucide-react';
+import { ArrowUp, Plus, Lock, LogIn, Zap, ChevronRight, X, Lightbulb, LogOut, Menu } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 
 interface Message {
@@ -196,9 +196,24 @@ function ChatPageInner() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+  const [advisoryExpanded, setAdvisoryExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const processedPromptRef = useRef(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (mobile) setSidebarOpen(false);
+      else setSidebarOpen(true);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -395,6 +410,19 @@ function ChatPageInner() {
   return (
     <div className="flex h-screen overflow-hidden bg-[#FBE8CE]">
 
+      {/* Mobile Sidebar Overlay Backdrop */}
+      <AnimatePresence>
+        {isMobile && sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+          />
+        )}
+      </AnimatePresence>
+
       {/* ── LEFT SIDEBAR (Spring Loaded) ── */}
       <AnimatePresence initial={false}>
         {sidebarOpen && (
@@ -404,7 +432,7 @@ function ChatPageInner() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -280, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="flex-shrink-0 flex flex-col border-r border-[#79AE6F]/10 overflow-hidden bg-[#FBE8CE] relative z-10 w-[280px]"
+            className={`${isMobile ? 'fixed inset-y-0 left-0 z-50' : 'relative z-10'} flex-shrink-0 flex flex-col border-r border-[#79AE6F]/10 overflow-hidden bg-[#FBE8CE] w-[280px]`}
           >
             <div className="flex flex-col h-full p-4">
               <div className="flex items-center justify-between mb-8 px-2 pt-2">
@@ -484,14 +512,16 @@ function ChatPageInner() {
       </AnimatePresence>
 
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#79AE6F]/10 bg-[#FBE8CE]/80 backdrop-blur-sm flex-shrink-0">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#79AE6F]/10 bg-[#FBE8CE]/80 backdrop-blur-sm flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3">
             {!sidebarOpen && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-2 text-[#79AE6F] font-bold tracking-tighter text-base hover:opacity-70 transition-opacity mr-2"
+                className="flex items-center gap-2 text-[#79AE6F] font-bold tracking-tighter text-sm sm:text-base hover:opacity-70 transition-opacity mr-1 sm:mr-2"
               >
-                <div className="w-4 h-4 bg-[#79AE6F] rounded-full" />
+                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#79AE6F]/10 border border-[#79AE6F]/20 mr-1">
+                  <Menu className="w-4 h-4" />
+                </div>
                 SPARK.
               </button>
             )}
@@ -528,20 +558,26 @@ function ChatPageInner() {
           )}
         </div>
 
-        {/* ── STRATEGIC ADVICE PANEL (Hover to Expand) ── */}
-        <div className="absolute top-20 right-8 z-20 pointer-events-none">
+        {/* ── STRATEGIC ADVICE PANEL (Hover or Click to Expand) ── */}
+        <div className="absolute top-20 right-4 sm:right-8 z-20 pointer-events-none">
           <motion.div
             initial={{ width: 44, height: 44, opacity: 0 }}
-            animate={{ opacity: 1 }}
-            whileHover={{ width: 280, height: 'auto' }}
+            animate={{ 
+              opacity: 1,
+              width: advisoryExpanded ? (isMobile ? 260 : 280) : 44,
+              height: advisoryExpanded ? 'auto' : 44
+            }}
+            onMouseEnter={() => !isMobile && setAdvisoryExpanded(true)}
+            onMouseLeave={() => !isMobile && setAdvisoryExpanded(false)}
+            onClick={() => isMobile && setAdvisoryExpanded(!advisoryExpanded)}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className="bg-white/40 backdrop-blur-md border border-[#79AE6F]/20 rounded-2xl shadow-sm pointer-events-auto overflow-hidden group cursor-help"
           >
-            <div className="w-[280px]">
+            <div className={`${isMobile ? 'w-[260px]' : 'w-[280px]'}`}>
               <div className="h-11 w-11 flex items-center justify-center">
-                <Lightbulb className="w-4 h-4 text-[#79AE6F] fill-none group-hover:fill-[#79AE6F]/20 transition-all duration-300" />
+                <Lightbulb className={`w-4 h-4 text-[#79AE6F] transition-all duration-300 ${advisoryExpanded ? 'fill-[#79AE6F]/20' : 'fill-none'}`} />
               </div>
-              <div className="px-5 pb-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className={`px-5 pb-5 transition-opacity duration-300 ${advisoryExpanded ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="flex items-center gap-2 mb-4">
                   <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#79AE6F]">Boardroom Advisory</h3>
                 </div>
@@ -589,7 +625,7 @@ function ChatPageInner() {
               </motion.div>
             </div>
           ) : (
-            <div className="max-w-5xl mx-auto px-8 py-8 space-y-8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
               {messages.map((msg, i) => {
                 const followUpRegex = /\n(?=###\s+\d+\.\s+The (?:Partner's|Partners)\s+Follow-?up)/i;
                 const parts = msg.content.split(followUpRegex);
@@ -609,8 +645,8 @@ function ChatPageInner() {
                          <div className="w-3 h-3 bg-[#FBE8CE] rounded-full" />
                        </div>
                     )}
-                    <div className={`flex flex-col gap-3 max-w-[90%] ${msg.role === 'user' ? 'items-end' : ''}`}>
-                      <div className={`${msg.role === 'user' ? 'bg-[#79AE6F] text-[#FBE8CE] rounded-tr-md' : 'bg-white/50 border border-[#79AE6F]/15 rounded-tl-md'} px-6 py-5 rounded-3xl backdrop-blur-sm min-w-[220px]`}>
+                    <div className={`flex flex-col gap-2 sm:gap-3 max-w-[95%] sm:max-w-[90%] ${msg.role === 'user' ? 'items-end' : ''}`}>
+                      <div className={`${msg.role === 'user' ? 'bg-[#79AE6F] text-[#FBE8CE] rounded-tr-md' : 'bg-white/50 border border-[#79AE6F]/15 rounded-tl-md'} px-4 sm:px-6 py-4 sm:py-5 rounded-3xl backdrop-blur-sm min-w-[140px] sm:min-w-[220px]`}>
                         {msg.role === 'agent' && <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9AB17A]/60 mb-3">Senior Partner</div>}
                         {msg.streaming && !msg.content ? (
                           <ThinkTankLoader />
@@ -651,7 +687,7 @@ function ChatPageInner() {
           )}
         </div>
 
-        <div className="flex-shrink-0 px-6 py-4 border-t border-[#79AE6F]/10 bg-[#FBE8CE]/80 backdrop-blur-sm">
+        <div className="flex-shrink-0 px-4 sm:px-6 py-4 border-t border-[#79AE6F]/10 bg-[#FBE8CE]/80 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto">
             <motion.div 
                animate={{ scale: isFocused ? 1.015 : 1 }}
